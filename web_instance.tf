@@ -56,3 +56,11 @@ resource "aws_instance" "web" {
     Project = "TP Terraform"
   }
 }
+
+###########################
+#   Web Instance Output   #
+###########################
+
+output "web_ip" {
+    value = "${aws_instance.web.public_ip}"
+}
