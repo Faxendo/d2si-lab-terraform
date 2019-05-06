@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo yum -y update
+sudo yum -y install httpd
+sudo service httpd start
+echo '<h3>Hello D2SI !</h3>' > /var/www/html/index.html

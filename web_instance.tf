@@ -51,11 +51,17 @@ resource "aws_instance" "web" {
   associate_public_ip_address = true
   source_dest_check           = false
 
+  user_data = "${file("${path.module}/templates/web.tmpl")}"
+
   tags = {
     Name    = "Web Server"
     Project = "TP Terraform"
   }
 }
+
+##############################
+#   Web Instance User Data   #
+##############################
 
 ###########################
 #   Web Instance Output   #
@@ -63,5 +69,5 @@ resource "aws_instance" "web" {
 
 output "web_ip" {
   description = "Web Instance public IP"
-  value = "${aws_instance.web.public_ip}"
+  value       = "${aws_instance.web.public_ip}"
 }
