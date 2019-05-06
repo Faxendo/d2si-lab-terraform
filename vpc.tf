@@ -72,7 +72,7 @@ resource "aws_route_table" "az_1_private" {
   vpc_id = "${aws_vpc.vpc_terraform.id}"
 
   route = {
-      cidr_block = "${aws_subnet.public_1.cidr_block}"
+    cidr_block = "${aws_subnet.public_1.cidr_block}"
   }
 
   tags = {
