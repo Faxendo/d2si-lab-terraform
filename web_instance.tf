@@ -68,15 +68,11 @@ resource "aws_instance" "web" {
   }
 }
 
-##############################
-#   Web Instance User Data   #
-##############################
-
 ###########################
 #   Web Instance Output   #
 ###########################
 
 output "web_ip" {
   description = "Web Instance public IP"
-  value       = "${aws_instance.web.public_ip}"
+  value       = "${aws_eip.web.public_ip}"
 }
