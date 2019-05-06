@@ -55,7 +55,7 @@ resource "aws_route_table_association" "az_1_public" {
 #####################
 #   Private Subnet  #
 #####################
-
+/*
 resource "aws_subnet" "private_1" {
   vpc_id = "${aws_vpc.vpc_terraform.id}"
 
@@ -85,3 +85,5 @@ resource "aws_route_table_association" "az_1_private" {
   route_table_id = "${aws_route_table.az_1_private.id}"
   subnet_id      = "${aws_subnet.private_1.id}"
 }
+*/
+
