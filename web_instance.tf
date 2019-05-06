@@ -62,5 +62,6 @@ resource "aws_instance" "web" {
 ###########################
 
 output "web_ip" {
+  description = "Web Instance public IP"
   value = "${aws_instance.web.public_ip}"
 }
