@@ -51,3 +51,37 @@ resource "aws_route_table_association" "az_1_public" {
   route_table_id = "${aws_route_table.az_1_public.id}"
   subnet_id      = "${aws_subnet.public_1.id}"
 }
+
+#####################
+#   Private Subnet  #
+#####################
+
+resource "aws_subnet" "private_1" {
+  vpc_id = "${aws_vpc.vpc_terraform.id}"
+
+  cidr_block        = "${var.private_subnet}"
+  availability_zone = "${var.aws_region_az_1}"
+
+  tags = {
+    Name    = "Private Subnet 1"
+    Project = "TP Terraform"
+  }
+}
+
+resource "aws_route_table" "az_1_private" {
+  vpc_id = "${aws_vpc.vpc_terraform.id}"
+
+  route = {
+      cidr_block = "${aws_subnet.public_1.cidr_block}"
+  }
+
+  tags = {
+    Name    = "Private Subnet Route Table"
+    Project = "TP Terraform"
+  }
+}
+
+resource "aws_route_table_association" "az_1_private" {
+  route_table_id = "${aws_route_table.az_1_private.id}"
+  subnet_id      = "${aws_subnet.private_1.id}"
+}
