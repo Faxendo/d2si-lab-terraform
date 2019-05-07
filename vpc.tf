@@ -21,19 +21,21 @@ resource "aws_internet_gateway" "vpc_igw" {
 ####################
 #   Public Subnet  #
 ####################
-resource "aws_subnet" "public_1" {
+resource "aws_subnet" "public" {
+  count = 2
+
   vpc_id = "${aws_vpc.vpc_terraform.id}"
 
-  cidr_block        = "${var.public_subnet}"
-  availability_zone = "${var.aws_region_az_1}"
+  cidr_block        = "${element(var.public_subnets, count.index)}"
+  availability_zone = "${element(var.aws_region_azs, count.index)}"
 
   tags = {
-    Name    = "Public Subnet 1"
+    Name    = "Public Subnet ${count.index}"
     Project = "TP Terraform"
   }
 }
 
-resource "aws_route_table" "az_1_public" {
+resource "aws_route_table" "azs_public" {
   vpc_id = "${aws_vpc.vpc_terraform.id}"
 
   route = {
@@ -47,9 +49,10 @@ resource "aws_route_table" "az_1_public" {
   }
 }
 
-resource "aws_route_table_association" "az_1_public" {
-  route_table_id = "${aws_route_table.az_1_public.id}"
-  subnet_id      = "${aws_subnet.public_1.id}"
+resource "aws_route_table_association" "azs_public" {
+  count          = 2
+  route_table_id = "${aws_route_table.azs_public.id}"
+  subnet_id      = "${element(aws_subnet.public.*.id, count.index)}"
 }
 
 #####################

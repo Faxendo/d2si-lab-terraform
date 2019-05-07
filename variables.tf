@@ -6,8 +6,9 @@ variable "aws_region" {
   description = "AWS Region"
 }
 
-variable "aws_region_az_1" {
-  description = "AWS Availability Zone 1"
+variable "aws_region_azs" {
+  type = "list"
+  description = "AWS Availability Zones"
 }
 
 variable "amis_web" {
@@ -23,14 +24,14 @@ variable "vpc_cidr" {
   default     = "172.23.0.0/16"
 }
 
-variable "public_subnet" {
-  description = "CIDR for public subnet"
-  default     = "172.23.1.0/24"
+variable "public_subnets" {
+  description = "CIDR for public subnets"
+  default     = ["172.23.1.0/24", "172.23.2.0/24"]
 }
 
-variable "private_subnet" {
+variable "private_subnets" {
   description = "CIDR for private subnet"
-  default     = "172.23.10.0/24"
+  default     = ["172.23.10.0/24", "172.23.20.0/24"]
 }
 
 variable "web_instance" {

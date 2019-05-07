@@ -49,13 +49,13 @@ resource "aws_eip" "web" {
 
 resource "aws_instance" "web" {
   ami               = "${lookup(var.amis_web, var.aws_region)}"
-  availability_zone = "${var.aws_region_az_1}"
+  availability_zone = "${var.aws_region_azs[0]}"
   instance_type     = "${var.web_instance}"
   key_name          = "${var.aws_key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.web.id}"]
 
-  subnet_id = "${aws_subnet.public_1.id}"
+  subnet_id = "${aws_subnet.public.0.id}"
 
   associate_public_ip_address = true
   source_dest_check           = false
